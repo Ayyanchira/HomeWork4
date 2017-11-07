@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		1C4AE0E8ACC76DED7C81D784 /* Pods_HomeWork4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0BEB5D536EDB02C44B4B22 /* Pods_HomeWork4.framework */; };
 		73E5D1D61FB17F1100417592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1D51FB17F1100417592 /* AppDelegate.swift */; };
-		73E5D1D81FB17F1100417592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1D71FB17F1100417592 /* ViewController.swift */; };
 		73E5D1DB1FB17F1100417592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73E5D1D91FB17F1100417592 /* Main.storyboard */; };
 		73E5D1DD1FB17F1100417592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73E5D1DC1FB17F1100417592 /* Assets.xcassets */; };
 		73E5D1E01FB17F1100417592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73E5D1DE1FB17F1100417592 /* LaunchScreen.storyboard */; };
+		73E5D1E81FB1895C00417592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1E71FB1895C00417592 /* LoginViewController.swift */; };
+		73E5D1EA1FB18C8000417592 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1E91FB18C8000417592 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		467DFEBF6A740D2E90F0D263 /* Pods-HomeWork4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeWork4.release.xcconfig"; path = "Pods/Target Support Files/Pods-HomeWork4/Pods-HomeWork4.release.xcconfig"; sourceTree = "<group>"; };
 		73E5D1D21FB17F1100417592 /* HomeWork4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeWork4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E5D1D51FB17F1100417592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		73E5D1D71FB17F1100417592 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		73E5D1DA1FB17F1100417592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		73E5D1DC1FB17F1100417592 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73E5D1DF1FB17F1100417592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73E5D1E11FB17F1100417592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73E5D1E71FB1895C00417592 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		73E5D1E91FB18C8000417592 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9D0BEB5D536EDB02C44B4B22 /* Pods_HomeWork4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeWork4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB69BDABFB1C35587628EBEB /* Pods-HomeWork4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeWork4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HomeWork4/Pods-HomeWork4.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,11 +73,12 @@
 			isa = PBXGroup;
 			children = (
 				73E5D1D51FB17F1100417592 /* AppDelegate.swift */,
-				73E5D1D71FB17F1100417592 /* ViewController.swift */,
 				73E5D1D91FB17F1100417592 /* Main.storyboard */,
 				73E5D1DC1FB17F1100417592 /* Assets.xcassets */,
 				73E5D1DE1FB17F1100417592 /* LaunchScreen.storyboard */,
 				73E5D1E11FB17F1100417592 /* Info.plist */,
+				73E5D1E71FB1895C00417592 /* LoginViewController.swift */,
+				73E5D1E91FB18C8000417592 /* WelcomeViewController.swift */,
 			);
 			path = HomeWork4;
 			sourceTree = "<group>";
@@ -217,7 +220,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73E5D1D81FB17F1100417592 /* ViewController.swift in Sources */,
+				73E5D1EA1FB18C8000417592 /* WelcomeViewController.swift in Sources */,
+				73E5D1E81FB1895C00417592 /* LoginViewController.swift in Sources */,
 				73E5D1D61FB17F1100417592 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
