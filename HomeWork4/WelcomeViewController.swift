@@ -23,7 +23,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     }
     
     func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
-        <#code#>
+        taskViewController.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func startSurveyPressed(_ sender: UIButton) {

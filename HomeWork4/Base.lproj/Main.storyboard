@@ -62,7 +62,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="qSL-T2-QTO" id="Us6-u5-jeY"/>
                         <outlet property="usernameTextField" destination="Ijb-YK-4u0" id="nZZ-us-ZvT"/>
-                        <segue destination="VZ6-0g-nYR" kind="show" id="4Np-lv-hEO"/>
+                        <segue destination="VZ6-0g-nYR" kind="show" identifier="loginSuccessful" id="4Np-lv-hEO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
