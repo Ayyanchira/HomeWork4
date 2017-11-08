@@ -12,6 +12,7 @@ import ResearchKit
 class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
 
     @IBOutlet var welcomeLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     var username:String?
     var token:String = {
         return UserDefaults.standard.object(forKey: "token") as! String
@@ -32,15 +33,46 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
         
         //fetching question class to get question
-        var surveyResult = [String:Any]()
+        //var surveyResult = [String:Any]()
         
         let question = SurveyData()
+//        for question in question.questionSetOne {
+//            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet1-\(question.key)"){
+//                var results = stepResult.results
+//                let booleanAnswer = results![0] as! ORKBooleanQuestionResult
+//                if let answer = booleanAnswer.booleanAnswer as? Int{
+//                    surveyResult[question.value] = answer
+//                }
+//
+//            }
+//        }
+//
+//        for question in question.questionSetTwo {
+//            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet2-\(question.key)"){
+//                var results = stepResult.results
+//                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+//                if let answer = scaleAnswer.scaleAnswer as? Int{
+//                    surveyResult[question.value] = "\(answer) days a week"
+//                }
+//            }
+//        }
+//
+//        for question in question.questionSetThree {
+//            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet3-\(question.key)"){
+//                var results = stepResult.results
+//                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+//                if let answer = scaleAnswer.scaleAnswer as? Int{
+//                    surveyResult[question.value] = "\(answer) days a week"
+//                }
+//            }
+//        }
+        var surveyResult:String = ""
         for question in question.questionSetOne {
             if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet1-\(question.key)"){
                 var results = stepResult.results
                 let booleanAnswer = results![0] as! ORKBooleanQuestionResult
                 if let answer = booleanAnswer.booleanAnswer as? Int{
-                    surveyResult[question.value] = answer
+                    surveyResult.append("%\(question.value)#\(answer)")
                 }
                 
             }
@@ -51,7 +83,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 var results = stepResult.results
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
-                    surveyResult[question.value] = "\(answer) days a week"
+                    surveyResult.append("%\(question.value)#\(answer) days a week")
                 }
             }
         }
@@ -61,16 +93,14 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 var results = stepResult.results
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
-                    surveyResult[question.value] = "\(answer) days a week"
+                    surveyResult.append("%\(question.value)#\(answer) days a week")
                 }
             }
         }
         
-//        let jsonData = surveyResult.description
-//        let ofProtocol = jsonData.replacingOccurrences(of: \, with: "")
-//
-//        jsonData = jsonData.replacingOccurrences(of: <#T##StringProtocol#>, with: <#T##StringProtocol#>)
+        //let jsonData = surveyResult.description
         
+        submitSurvey(surveyJson: surveyResult)
         
         taskViewController.dismiss(animated: true, completion: nil)
     }
@@ -83,7 +113,72 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     }
     
     
+    func submitSurvey(surveyJson:String) {
+        let headers = [
+            "content-type": "application/json",
+            "cache-control": "no-cache",
+            "postman-token": "3d707e3c-8e23-d7fc-1072-25053af7fee1"
+        ]
+        let parameters = [
+            "email": "whyDoWeNeedThis@gmail.com?",
+            "survey": surveyJson,
+            "token": token
+            ] as [String : Any]
+        
+        let postData = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let request = NSMutableURLRequest(url: NSURL(string: "http://13.58.162.202:5000/surveyapi")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        request.httpBody = postData as Data!
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error as Any)
+            } else {
+                let datastring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
+                let dict = self.convertToDictionary(text: String(datastring))
+                
+                if let statusCode = dict?["code"] as! Int?{
+                    DispatchQueue.main.async {
+                        if statusCode == 200{
+                            print("Survey Submitted")
+                            self.startButton.isEnabled = false
+                            self.startButton.setTitle("Completed", for: UIControlState.disabled)
+                        }
+                        else if statusCode == 400{
+                            let alert = UIAlertController(title: "Failed", message: "OOPS! Somethign went wrong!", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler:nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                    
+                }
+                
+                print(datastring)
+            }
+        })
+        
+        dataTask.resume()
+    }
     
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    @IBAction func logoutButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

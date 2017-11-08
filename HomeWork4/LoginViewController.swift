@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         
-        if usernameTextField.text == "username" && passwordTextField.text == "password"{
+        if usernameTextField.text != "" && passwordTextField.text != ""{
             
             let headers = [
                 "content-type": "application/json",
@@ -33,8 +33,8 @@ class LoginViewController: UIViewController {
                 "postman-token": "337c2502-d408-122c-b7cb-2d2ef76a69a6"
             ]
             let parameters = [
-                "email": "patient5@gmail.com",
-                "password": "password"
+                "email": usernameTextField.text!,
+                "password": passwordTextField.text!
                 ] as [String : Any]
             
             let postData = try? JSONSerialization.data(withJSONObject: parameters, options: [])
