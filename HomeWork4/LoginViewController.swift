@@ -57,7 +57,10 @@ class LoginViewController: UIViewController {
                     if let statusCode = dict?["code"] as! Int?{
                         DispatchQueue.main.async {
                             if statusCode == 200{
-                                self.performSegue(withIdentifier: "loginSuccessful", sender: nil)
+                                let username = dict?["name"] as! String?
+                                let token = dict?["token"] as! String
+                                UserDefaults.standard.set(token, forKey: "token")
+                                self.performSegue(withIdentifier: "loginSuccessful", sender: username)
                             }
                             else if statusCode == 400{
                                 let alert = UIAlertController(title: "Error", message: "Username does not exist", preferredStyle: .alert)
@@ -71,13 +74,17 @@ class LoginViewController: UIViewController {
                     print(datastring)
                 }
             })
-            
             dataTask.resume()
-            
-            
             //performSegue(withIdentifier: "loginSuccessful", sender: nil)
         }
-        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "loginSuccessful"{
+            let welcomeViewController = segue.destination as! WelcomeViewController
+            welcomeViewController.username = sender as? String
+        }
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {

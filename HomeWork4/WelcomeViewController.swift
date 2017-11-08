@@ -11,9 +11,16 @@ import ResearchKit
 
 class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
 
+    @IBOutlet var welcomeLabel: UILabel!
+    var username:String?
+    var token:String = {
+        return UserDefaults.standard.object(forKey: "token") as! String
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        welcomeLabel.text = "Welcome \(username!),\nHow are you?\nReady for a quick survey?"
+        
+        print("Token fetched is \(token)")
         // Do any additional setup after loading the view.
     }
 
