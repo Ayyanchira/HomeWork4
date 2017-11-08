@@ -30,6 +30,48 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     }
     
     func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
+        
+        //fetching question class to get question
+        var surveyResult = [String:Any]()
+        
+        let question = SurveyData()
+        for question in question.questionSetOne {
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet1-\(question.key)"){
+                var results = stepResult.results
+                let booleanAnswer = results![0] as! ORKBooleanQuestionResult
+                if let answer = booleanAnswer.booleanAnswer as? Int{
+                    surveyResult[question.value] = answer
+                }
+                
+            }
+        }
+        
+        for question in question.questionSetTwo {
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet2-\(question.key)"){
+                var results = stepResult.results
+                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+                if let answer = scaleAnswer.scaleAnswer as? Int{
+                    surveyResult[question.value] = "\(answer) days a week"
+                }
+            }
+        }
+        
+        for question in question.questionSetThree {
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet3-\(question.key)"){
+                var results = stepResult.results
+                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+                if let answer = scaleAnswer.scaleAnswer as? Int{
+                    surveyResult[question.value] = "\(answer) days a week"
+                }
+            }
+        }
+        
+//        let jsonData = surveyResult.description
+//        let ofProtocol = jsonData.replacingOccurrences(of: \, with: "")
+//
+//        jsonData = jsonData.replacingOccurrences(of: <#T##StringProtocol#>, with: <#T##StringProtocol#>)
+        
+        
         taskViewController.dismiss(animated: true, completion: nil)
     }
     

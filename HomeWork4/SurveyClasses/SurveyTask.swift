@@ -22,14 +22,18 @@ class SurveyTask: NSObject {
         let answerFormatSelection = ORKScaleAnswerFormat(maximumValue: 7, minimumValue: 0, defaultValue: 0, step: 1)
         
         // PARGMA MARK: Fetching and appending questions from File/Class
-        let genericQuestionOne = questions.questionSetOne["1"];
-        let questionOneStep = ORKQuestionStep(identifier: "question1", title: genericQuestionOne , answer: answerFormatYesOrNo)
-        steps += [questionOneStep]
+//        let genericQuestionOne = questions.questionSetOne["1"];
+//        let questionOneStep = ORKQuestionStep(identifier: "questionSet1-", title: genericQuestionOne , answer: answerFormatYesOrNo)
+//        steps += [questionOneStep]
+//
+//        let genericQuestionTwo = questions.questionSetOne["2"];
+//        let questionTwoStep = ORKQuestionStep(identifier: "questionSet1-", title: genericQuestionTwo , answer: answerFormatYesOrNo)
+//        steps += [questionTwoStep]
         
-        let genericQuestionTwo = questions.questionSetOne["2"];
-        let questionTwoStep = ORKQuestionStep(identifier: "question2", title: genericQuestionTwo , answer: answerFormatYesOrNo)
-        steps += [questionTwoStep]
-        
+        for i in 1...questions.questionSetOne.count{
+            let questionStep = ORKQuestionStep(identifier: "questionSet1-\(i)", title: questions.questionSetOne["\(i)"], answer: answerFormatYesOrNo)
+            steps += [questionStep]
+        }
         
         for i in 1...questions.questionSetTwo.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet2-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetTwo["\(i)"], answer: answerFormatSelection)
@@ -52,14 +56,14 @@ class SurveyTask: NSObject {
         
         
         // PRAGMA MARK: Set rules for ORKNavigableOrdered Task
-        var predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: questionOneStep.identifier), expectedAnswer: true)
-        let ruleOne = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: [questionTwoStep.identifier], defaultStepIdentifier: "questionSet3-1", validateArrays: true)
+        var predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: "questionSet1-1"), expectedAnswer: true)
+        let ruleOne = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet1-2"], defaultStepIdentifier: "questionSet3-1", validateArrays: true)
         
-        predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: questionTwoStep.identifier), expectedAnswer: true)
+        predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: "questionSet1-2"), expectedAnswer: true)
         let ruleTwo = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet2-1"], defaultStepIdentifier: "questionSet3-1", validateArrays: true)
         
-        orderedTask?.setNavigationRule(ruleOne, forTriggerStepIdentifier: questionOneStep.identifier)
-        orderedTask?.setNavigationRule(ruleTwo, forTriggerStepIdentifier: questionTwoStep.identifier)
+        orderedTask?.setNavigationRule(ruleOne, forTriggerStepIdentifier: "questionSet1-1")
+        orderedTask?.setNavigationRule(ruleTwo, forTriggerStepIdentifier: "questionSet1-2")
         
         return orderedTask!
     }
