@@ -26,10 +26,71 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         
         if usernameTextField.text == "username" && passwordTextField.text == "password"{
-            performSegue(withIdentifier: "loginSuccessful", sender: nil)
+            
+            let headers = [
+                "content-type": "application/json",
+                "cache-control": "no-cache",
+                "postman-token": "337c2502-d408-122c-b7cb-2d2ef76a69a6"
+            ]
+            let parameters = [
+                "email": "patient5@gmail.com",
+                "password": "password"
+                ] as [String : Any]
+            
+            let postData = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+            
+            let request = NSMutableURLRequest(url: NSURL(string: "http://13.58.162.202:5000/loginapi")! as URL,
+                                              cachePolicy: .useProtocolCachePolicy,
+                                              timeoutInterval: 10.0)
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = postData as Data!
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+                if (error != nil) {
+                    print(error!)
+                } else {
+                    let datastring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
+                    let dict = self.convertToDictionary(text: String(datastring))
+                    
+                    if let statusCode = dict?["code"] as! Int?{
+                        DispatchQueue.main.async {
+                            if statusCode == 200{
+                                self.performSegue(withIdentifier: "loginSuccessful", sender: nil)
+                            }
+                            else if statusCode == 400{
+                                let alert = UIAlertController(title: "Error", message: "Username does not exist", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler:nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        }
+                        
+                    }
+                    
+                    print(datastring)
+                }
+            })
+            
+            dataTask.resume()
+            
+            
+            //performSegue(withIdentifier: "loginSuccessful", sender: nil)
         }
         
     }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
     
     /*
     // MARK: - Navigation
