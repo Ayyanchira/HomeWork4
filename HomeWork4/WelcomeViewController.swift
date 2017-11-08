@@ -27,9 +27,10 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     }
     
     @IBAction func startSurveyPressed(_ sender: UIButton) {
-//        let taskViewController = ORKTaskViewController(task: ConsentTask, taskRun: nil)
-//        taskViewController.delegate = self
-//        present(taskViewController, animated: true, completion: nil)
+        let surveyTask = SurveyTask()
+        let taskViewController = ORKTaskViewController(task: surveyTask.getOrderedTasksWithRules(), taskRun: nil)
+        taskViewController.delegate = self
+        present(taskViewController, animated: true, completion: nil)
     }
     
     
