@@ -32,10 +32,39 @@ class SurveyData: NSObject {
         "9":"Eat broccoli, collard greens, spinach, potatoes, squash or sweet potatoes?",
         "10":"Eat apples, bananas, oranges, melon or raisins?",
         "11":"Eat whole grain breads, cereals, grits, oatmeal or brown rice?",
-        "12":"Do at least 30 minutes total of physical activity?",
-        "13":"Do a specific exercise activity (such as swimming, walking, or biking) other than what you do around the house or as part of your work?",
-        "14":"Engage in weight lifting or strength training (other than what you do around the house or as part of your work)?",
-        "15":"Do any repeated heavy lifting or pushing/pulling of heavy items either for your job or around the house or garden?"
+        
     ]
+    
+    let questionSetFour = [
+        "1":"Do at least 30 minutes total of physical activity?",
+        "2":"Do a specific exercise activity (such as swimming, walking, or biking) other than what you do around the house or as part of your work?",
+        "3":"Engage in weight lifting or strength training (other than what you do around the house or as part of your work)?",
+        "4":"Do any repeated heavy lifting or pushing/pulling of heavy items either for your job or around the house or garden?"
+    ]
+    
+    let questionSetFive = [
+        "1":"Smoke a cigarette or cigar, even just one puff?",
+        "2":"Stay in a room or ride in an enclosed vehicle while someone was smoking?"
+    ]
+    
+    let questionSetSix = [
+        "1":"I am careful about what I eat.",
+        "2":"I read food labels when I grocery shop.",
+        "3":"I exercise in order to lose or maintain weight.",
+        "4":"I have cut out drinking sugary sodas and sweet tea.",
+        "5":"I eat smaller portions or eat fewer portions.",
+        "6":"I have stopped buying or bringing unhealthy foods into my home.",
+        "7":"I have cut out or limit some foods that I like but that are not good for me.",
+        "8":"I eat at restaurants or fast food places less often.",
+        "9":"I substitute healthier foods for things that I used to eat.",
+        "10":"I have modified my recipes when I cook."
+        ]
+    
+    let questionSetSeven = [
+        "1":"On average, how many days per week do you drink alcohol?",
+        "2":"On a typical day that you drink alcohol, how many drinks do you have?",
+        "3":"What is the largest number of drinks that you’ve had on any given day within the last month?"
+    ]
+    
 }
 
