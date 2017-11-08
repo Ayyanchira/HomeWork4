@@ -73,6 +73,8 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let booleanAnswer = results![0] as! ORKBooleanQuestionResult
                 if let answer = booleanAnswer.booleanAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer)")
+                }else{
+                    surveyResult.append("%\(question.value)#NA")
                 }
                 
             }
@@ -85,6 +87,9 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
                 }
+                else{
+                    surveyResult.append("%\(question.value)#NA")
+                }
             }
         }
         
@@ -94,6 +99,8 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                }else{
+                    surveyResult.append("%\(question.value)#NA")
                 }
             }
         }
