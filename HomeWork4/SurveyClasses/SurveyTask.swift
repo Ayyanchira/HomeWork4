@@ -21,6 +21,16 @@ class SurveyTask: NSObject {
         let answerFormatYesOrNo = ORKBooleanAnswerFormat()
         let answerFormatSelection = ORKScaleAnswerFormat(maximumValue: 7, minimumValue: 0, defaultValue: 0, step: 1)
         
+        let orkTextChoices1 = ORKTextChoice(text: "Strongly Disagree", detailText: nil, value: 1 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
+        let orkTextChoices2 = ORKTextChoice(text: "Disagree", detailText: nil, value: 2 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
+        let orkTextChoices3 = ORKTextChoice(text: "Not Sure", detailText: nil, value: 3 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
+        let orkTextChoices4 = ORKTextChoice(text: "Agree", detailText: nil, value: 4 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
+        let orkTextChoices5 = ORKTextChoice(text: "Strongly Agree", detailText: nil, value: 5 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
+        let answerFormatAgreeDisagree = ORKTextScaleAnswerFormat(textChoices: [orkTextChoices1,orkTextChoices2,orkTextChoices3,orkTextChoices4,orkTextChoices5], defaultIndex: 3)
+        
+        
+        let answerFormatTextInput = ORKNumericAnswerFormat(style: ORKNumericAnswerStyle.integer)
+        
         // PARGMA MARK: Fetching and appending questions from File/Class
 //        let genericQuestionOne = questions.questionSetOne["1"];
 //        let questionOneStep = ORKQuestionStep(identifier: "questionSet1-", title: genericQuestionOne , answer: answerFormatYesOrNo)
