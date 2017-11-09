@@ -26,7 +26,7 @@ class SurveyTask: NSObject {
         let orkTextChoices3 = ORKTextChoice(text: "Not Sure", detailText: nil, value: 3 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
         let orkTextChoices4 = ORKTextChoice(text: "Agree", detailText: nil, value: 4 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
         let orkTextChoices5 = ORKTextChoice(text: "Strongly Agree", detailText: nil, value: 5 as NSCoding & NSCopying & NSObjectProtocol, exclusive: false)
-        let answerFormatAgreeDisagree = ORKTextScaleAnswerFormat(textChoices: [orkTextChoices1,orkTextChoices2,orkTextChoices3,orkTextChoices4,orkTextChoices5], defaultIndex: 3)
+        let answerFormatAgreeDisagree = ORKTextScaleAnswerFormat(textChoices: [orkTextChoices1,orkTextChoices2,orkTextChoices3,orkTextChoices4,orkTextChoices5], defaultIndex: 2)
         
         
         let answerFormatTextInput = ORKNumericAnswerFormat(style: ORKNumericAnswerStyle.integer)
@@ -40,19 +40,54 @@ class SurveyTask: NSObject {
 //        let questionTwoStep = ORKQuestionStep(identifier: "questionSet1-", title: genericQuestionTwo , answer: answerFormatYesOrNo)
 //        steps += [questionTwoStep]
         
+        //General
         for i in 1...questions.questionSetOne.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet1-\(i)", title: questions.questionSetOne["\(i)"], answer: answerFormatYesOrNo)
             steps += [questionStep]
         }
         
+        //Medication
         for i in 1...questions.questionSetTwo.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet2-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetTwo["\(i)"], answer: answerFormatSelection)
             steps += [questionStep]
         }
         
+        //Diet
         for i in 1...questions.questionSetThree.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet3-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetThree["\(i)"], answer: answerFormatSelection)
             steps += [questionStep]
+        }
+        
+        //Physical Activity
+        for i in 1...questions.questionSetFour.count{
+            let questionStep = ORKQuestionStep(identifier: "questionSet4-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetFour["\(i)"], answer: answerFormatSelection)
+            steps += [questionStep]
+        }
+        
+        //Smoking
+        for i in 1...questions.questionSetFive.count{
+            let questionStep = ORKQuestionStep(identifier: "questionSet5-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetFive["\(i)"], answer: answerFormatSelection)
+            steps += [questionStep]
+        }
+        
+        //Weight Management
+        for i in 1...questions.questionSetSix.count{
+            let questionStep = ORKQuestionStep(identifier: "questionSet6-\(i)", title:questions.questionSetSix["\(i)"], answer: answerFormatAgreeDisagree)
+            steps += [questionStep]
+        }
+        
+        //Alcohol Consumption
+        for i in 1...questions.questionSetSeven.count{
+            if i == 1{
+                let questionStep = ORKQuestionStep(identifier: "questionSet7-\(i)", title:questions.questionSetSeven["\(i)"], answer: answerFormatSelection)
+                steps += [questionStep]
+                
+            }else{
+                let questionStep = ORKQuestionStep(identifier: "questionSet7-\(i)", title:questions.questionSetSeven["\(i)"], answer: answerFormatTextInput)
+                steps += [questionStep]
+            }
+            
+            
         }
         
         
