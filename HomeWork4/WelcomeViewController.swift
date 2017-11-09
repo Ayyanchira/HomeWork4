@@ -34,7 +34,10 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
         
         //fetching question class to get question
         //var surveyResult = [String:Any]()
-        
+        if reason == ORKTaskViewControllerFinishReason.discarded || reason == ORKTaskViewControllerFinishReason.failed{
+            taskViewController.dismiss(animated: true, completion: nil)
+            return
+        }
         let question = SurveyData()
 //        for question in question.questionSetOne {
 //            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet1-\(question.key)"){

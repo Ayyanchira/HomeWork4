@@ -52,6 +52,17 @@ class SurveyTask: NSObject {
             steps += [questionStep]
         }
         
+        let instructionStepHealth = ORKInstructionStep(identifier: "medicationIntro")
+        instructionStepHealth.title = "The following questions ask about your health behavior activities during the past 7 days."
+        instructionStepHealth.text = "For eachquestion, select the number of days that you performed that activity."
+        steps += [instructionStepHealth]
+        
+        
+        
+        
+        
+        
+        
         //Diet
         for i in 1...questions.questionSetThree.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet3-\(i)", title: "How many of the past 7 days did you:", text: questions.questionSetThree["\(i)"], answer: answerFormatSelection)
@@ -70,6 +81,12 @@ class SurveyTask: NSObject {
             steps += [questionStep]
         }
         
+        
+        let instructionStepWeightManagement = ORKInstructionStep(identifier: "weightIntro")
+        instructionStepWeightManagement.title = "Weight Management"
+        instructionStepWeightManagement.text = "The following questions ask about your efforts to manage your weight during the last 30 days. If you were sick during the past month, please think back to the previous month that you were not sick. Circle the one answer that best describes what you do to lose weight or maintain your weight."
+        steps += [instructionStepWeightManagement]
+        
         //Weight Management
         for i in 1...questions.questionSetSix.count{
             let questionStep = ORKQuestionStep(identifier: "questionSet6-\(i)", title:questions.questionSetSix["\(i)"], answer: answerFormatAgreeDisagree)
@@ -77,6 +94,12 @@ class SurveyTask: NSObject {
         }
         
         //Alcohol Consumption
+        
+        let instructionStepAlcoholManagement = ORKInstructionStep(identifier: "Alcohol Intro")
+        instructionStepAlcoholManagement.title = "The next three questions are about alcohol consumption."
+        instructionStepAlcoholManagement.text = "A drink of alcohol is defined as:\nOne, 12 oz. can or bottle of beer;\nOne, 4 ounce glass of wine;\nOne, 12 oz. can or bottle of wine cooler; \nOne mixed drink or cocktail;\nOr 1 shot of hard liquor."
+        steps += [instructionStepAlcoholManagement]
+        
         for i in 1...questions.questionSetSeven.count{
             if i == 1{
                 let questionStep = ORKQuestionStep(identifier: "questionSet7-\(i)", title:questions.questionSetSeven["\(i)"], answer: answerFormatSelection)
@@ -102,10 +125,10 @@ class SurveyTask: NSObject {
         
         // PRAGMA MARK: Set rules for ORKNavigableOrdered Task
         var predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: "questionSet1-1"), expectedAnswer: true)
-        let ruleOne = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet1-2"], defaultStepIdentifier: "questionSet3-1", validateArrays: true)
+        let ruleOne = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet1-2"], defaultStepIdentifier: "medicationIntro", validateArrays: true)
         
         predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: "questionSet1-2"), expectedAnswer: true)
-        let ruleTwo = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet2-1"], defaultStepIdentifier: "questionSet3-1", validateArrays: true)
+        let ruleTwo = ORKPredicateStepNavigationRule(resultPredicates: [predicate], destinationStepIdentifiers: ["questionSet2-1"], defaultStepIdentifier: "medicationIntro", validateArrays: true)
         
         orderedTask?.setNavigationRule(ruleOne, forTriggerStepIdentifier: "questionSet1-1")
         orderedTask?.setNavigationRule(ruleTwo, forTriggerStepIdentifier: "questionSet1-2")
