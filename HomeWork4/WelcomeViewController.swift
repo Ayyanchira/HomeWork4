@@ -17,6 +17,14 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     var token:String = {
         return UserDefaults.standard.object(forKey: "token") as! String
     }()
+    
+    var scoreMedication:Int = 0
+    var scoreDiet:Int = 0
+    var scorePhysical:Int = 0
+    var scoreSmoking:Int = 0
+    var scoreWeight:Int = 0
+    var scoreAlcohol:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         welcomeLabel.text = "Welcome \(username!),\nHow are you?\nReady for a quick survey?"
@@ -89,6 +97,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreMedication += answer
                 }
                 else{
                     surveyResult.append("%\(question.value)#NA")
@@ -102,6 +111,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreDiet += answer
                 }else{
                     surveyResult.append("%\(question.value)#NA")
                 }
@@ -114,6 +124,9 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    if question.key == "1" || question.key == "2"{
+                        scorePhysical += answer
+                    }
                 }else{
                     surveyResult.append("%\(question.value)#NA")
                 }
@@ -126,6 +139,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreSmoking += answer
                 }else{
                     surveyResult.append("%\(question.value)#NA")
                 }
@@ -138,6 +152,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKChoiceQuestionResult
                 if let answer = scaleAnswer.choiceAnswers{
                     surveyResult.append("%\(question.value)#I think I \(answer[0])")
+                    scoreWeight += answer[0] as! Int
                 }else{
                     surveyResult.append("%\(question.value)#NA")
                 }
@@ -145,12 +160,14 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
         }
         
         for question in question.questionSetSeven {
+            var perWeekCount = 0
             if question.key == "1"{
                 if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet7-\(question.key)"){
                     var results = stepResult.results
                     let scaleAnswer = results![0] as! ORKScaleQuestionResult
                     if let answer = scaleAnswer.scaleAnswer as? Int{
                         surveyResult.append("%\(question.value)#\(answer) days a week")
+                        perWeekCount = answer
                     }else{
                         surveyResult.append("%\(question.value)#NA")
                     }
@@ -162,6 +179,10 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                     let scaleAnswer = results![0] as! ORKNumericQuestionResult
                     if let answer = scaleAnswer.numericAnswer as? Int{
                         surveyResult.append("%\(question.value)#\(answer) drinks")
+                        if question.key == "2"{
+                            let drinksPerDay = answer
+                            scoreAlcohol = perWeekCount * drinksPerDay
+                        }
                     }else{
                         surveyResult.append("%\(question.value)#NA")
                     }
@@ -170,6 +191,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
             
         }
         
+        surveyResult.append("**&&MedicationScore:\(scoreMedication),&&DietScore:\(scoreDiet),&&PhysicalActivityScore:\(scoreDiet),&&SmokingScore:\(scoreDiet),&&WeightManagementScore:\(scoreDiet),&&AlcoholScore:\(scoreDiet)**")
         //let jsonData = surveyResult.description
         
         submitSurvey(surveyJson: surveyResult)
