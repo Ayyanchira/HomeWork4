@@ -191,7 +191,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
             
         }
         
-        surveyResult.append("**&&MedicationScore:\(scoreMedication),&&DietScore:\(scoreDiet),&&PhysicalActivityScore:\(scoreDiet),&&SmokingScore:\(scoreDiet),&&WeightManagementScore:\(scoreDiet),&&AlcoholScore:\(scoreDiet)**")
+        surveyResult.append("**&&MedicationScore:\(scoreMedication),&&DietScore:\(scoreDiet),&&PhysicalActivityScore:\(scorePhysical),&&SmokingScore:\(scoreSmoking),&&WeightManagementScore:\(scoreWeight),&&AlcoholScore:\(scoreAlcohol)**")
         //let jsonData = surveyResult.description
         
         submitSurvey(surveyJson: surveyResult)
