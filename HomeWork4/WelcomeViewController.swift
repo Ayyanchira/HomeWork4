@@ -14,9 +14,10 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     @IBOutlet var welcomeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     var username:String?
-    var token:String = {
-        return UserDefaults.standard.object(forKey: "token") as! String
-    }()
+//    var token:String = {
+//        return UserDefaults.standard.object(forKey: "token") as! String
+//    }()
+    var token = "SOMERANDOMTOKENGENERATED>PLEASECOMMENTTHISLINEANDUSEABOVEMETHOD"
     override func viewDidLoad() {
         super.viewDidLoad()
         welcomeLabel.text = "Welcome \(username!),\nHow are you?\nReady for a quick survey?"

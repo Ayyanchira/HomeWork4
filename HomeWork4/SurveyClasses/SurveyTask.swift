@@ -14,7 +14,13 @@ class SurveyTask: NSObject {
     let questions = SurveyData();
     var orderedTask:ORKNavigableOrderedTask?
     var steps = [ORKStep]()
-    
+    enum taskType:String {
+        case boolean = "Boolean"
+        case scale = "Scale"
+        case text = "text"
+        case information = "information"
+        case thankyou = "thankyou"
+    }
     func getOrderedTasksWithRules() -> ORKNavigableOrderedTask {
         
         // PRAGMA MARK: Defining answer formats
