@@ -35,7 +35,10 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
         
         //fetching question class to get question
         //var surveyResult = [String:Any]()
-        
+        if reason == ORKTaskViewControllerFinishReason.discarded || reason == ORKTaskViewControllerFinishReason.failed{
+            taskViewController.dismiss(animated: true, completion: nil)
+            return
+        }
         let question = SurveyData()
 //        for question in question.questionSetOne {
 //            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet1-\(question.key)"){
@@ -87,6 +90,7 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreMedication += answer
                 }
                 else{
                     surveyResult.append("%\(question.value)#NA")
@@ -100,12 +104,87 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
                 let scaleAnswer = results![0] as! ORKScaleQuestionResult
                 if let answer = scaleAnswer.scaleAnswer as? Int{
                     surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreDiet += answer
                 }else{
                     surveyResult.append("%\(question.value)#NA")
                 }
             }
         }
         
+        for question in question.questionSetFour{
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet4-\(question.key)"){
+                var results = stepResult.results
+                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+                if let answer = scaleAnswer.scaleAnswer as? Int{
+                    surveyResult.append("%\(question.value)#\(answer) days a week")
+                    if question.key == "1" || question.key == "2"{
+                        scorePhysical += answer
+                    }
+                }else{
+                    surveyResult.append("%\(question.value)#NA")
+                }
+            }
+        }
+        
+        for question in question.questionSetFive {
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet5-\(question.key)"){
+                var results = stepResult.results
+                let scaleAnswer = results![0] as! ORKScaleQuestionResult
+                if let answer = scaleAnswer.scaleAnswer as? Int{
+                    surveyResult.append("%\(question.value)#\(answer) days a week")
+                    scoreSmoking += answer
+                }else{
+                    surveyResult.append("%\(question.value)#NA")
+                }
+            }
+        }
+        
+        for question in question.questionSetSix {
+            if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet6-\(question.key)"){
+                var results = stepResult.results
+                let scaleAnswer = results![0] as! ORKChoiceQuestionResult
+                if let answer = scaleAnswer.choiceAnswers{
+                    surveyResult.append("%\(question.value)#I think I \(answer[0])")
+                    scoreWeight += answer[0] as! Int
+                }else{
+                    surveyResult.append("%\(question.value)#NA")
+                }
+            }
+        }
+        
+        for question in question.questionSetSeven {
+            var perWeekCount = 0
+            if question.key == "1"{
+                if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet7-\(question.key)"){
+                    var results = stepResult.results
+                    let scaleAnswer = results![0] as! ORKScaleQuestionResult
+                    if let answer = scaleAnswer.scaleAnswer as? Int{
+                        surveyResult.append("%\(question.value)#\(answer) days a week")
+                        perWeekCount = answer
+                    }else{
+                        surveyResult.append("%\(question.value)#NA")
+                    }
+                }
+            }
+            else{
+                if let stepResult = taskViewController.result.stepResult(forStepIdentifier: "questionSet7-\(question.key)"){
+                    var results = stepResult.results
+                    let scaleAnswer = results![0] as! ORKNumericQuestionResult
+                    if let answer = scaleAnswer.numericAnswer as? Int{
+                        surveyResult.append("%\(question.value)#\(answer) drinks")
+                        if question.key == "2"{
+                            let drinksPerDay = answer
+                            scoreAlcohol = perWeekCount * drinksPerDay
+                        }
+                    }else{
+                        surveyResult.append("%\(question.value)#NA")
+                    }
+                }
+            }
+            
+        }
+        
+        surveyResult.append("**&&MedicationScore:\(scoreMedication),&&DietScore:\(scoreDiet),&&PhysicalActivityScore:\(scorePhysical),&&SmokingScore:\(scoreSmoking),&&WeightManagementScore:\(scoreWeight),&&AlcoholScore:\(scoreAlcohol)**")
         //let jsonData = surveyResult.description
         
         submitSurvey(surveyJson: surveyResult)
