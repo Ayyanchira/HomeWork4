@@ -17,6 +17,14 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
 //    var token:String = {
 //        return UserDefaults.standard.object(forKey: "token") as! String
 //    }()
+    
+    var scoreMedication:Int = 0
+    var scoreDiet:Int = 0
+    var scorePhysical:Int = 0
+    var scoreSmoking:Int = 0
+    var scoreWeight:Int = 0
+    var scoreAlcohol:Int = 0
+    
     var token = "SOMERANDOMTOKENGENERATED>PLEASECOMMENTTHISLINEANDUSEABOVEMETHOD"
     override func viewDidLoad() {
         super.viewDidLoad()
