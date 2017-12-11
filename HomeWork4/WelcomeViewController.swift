@@ -201,10 +201,11 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     }
     
     @IBAction func startSurveyPressed(_ sender: UIButton) {
-        let surveyTask = SurveyTask()
-        let taskViewController = ORKTaskViewController(task: surveyTask.getOrderedTasksWithRules(), taskRun: nil)
-        taskViewController.delegate = self
-        present(taskViewController, animated: true, completion: nil)
+//        let surveyTask = SurveyTask()
+//        let taskViewController = ORKTaskViewController(task: surveyTask.getOrderedTasksWithRules(), taskRun: nil)
+//        taskViewController.delegate = self
+//        present(taskViewController, animated: true, completion: nil)
+        self.getSurvey()
     }
     
     
@@ -274,6 +275,47 @@ class WelcomeViewController: UIViewController, ORKTaskViewControllerDelegate {
     @IBAction func logoutButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func getSurvey() {
+        let headers = [
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+            "Postman-Token": "87a828a6-f032-d005-3a63-4b509659d91c"
+        ]
+        
+        let request = NSMutableURLRequest(url: NSURL(string: "http://13.59.54.128:4000/getSurveyQuestion")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                //                let httpResponse = response as? HTTPURLResponse
+                let datastring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
+                let jsonDecoder = JSONDecoder()
+                do{
+                    let responseModel = try jsonDecoder.decode(SurveyResponse.self, from: data!)
+                    let surveyTask = SurveyTask()
+                    
+                    
+                    let taskViewController = ORKTaskViewController(task: surveyTask.getOrderedTasksWithRulesWith(surveyID: responseModel.surveyID, stepsResponse: responseModel.steps!), taskRun: nil)
+                    taskViewController.delegate = self
+                    self.present(taskViewController, animated: true, completion: nil)
+                }catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+                
+                
+            }
+        })
+        
+        dataTask.resume()
+    }
+    
     /*
     // MARK: - Navigation
 

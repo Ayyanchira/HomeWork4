@@ -16,6 +16,8 @@
 		73E5D1EA1FB18C8000417592 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1E91FB18C8000417592 /* WelcomeViewController.swift */; };
 		73E5D1EE1FB27C8500417592 /* SurveyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1ED1FB27C8500417592 /* SurveyTask.swift */; };
 		73E5D1F21FB2890500417592 /* SurveyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5D1F11FB2890500417592 /* SurveyData.swift */; };
+		CE370C261FDE142B00BF784C /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE370C241FDE142B00BF784C /* Steps.swift */; };
+		CE370C271FDE142B00BF784C /* SurveyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE370C251FDE142B00BF784C /* SurveyResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		73E5D1ED1FB27C8500417592 /* SurveyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTask.swift; sourceTree = "<group>"; };
 		73E5D1F11FB2890500417592 /* SurveyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyData.swift; sourceTree = "<group>"; };
 		9D0BEB5D536EDB02C44B4B22 /* Pods_HomeWork4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeWork4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE370C241FDE142B00BF784C /* Steps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Steps.swift; sourceTree = "<group>"; };
+		CE370C251FDE142B00BF784C /* SurveyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyResponse.swift; sourceTree = "<group>"; };
 		EB69BDABFB1C35587628EBEB /* Pods-HomeWork4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeWork4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HomeWork4/Pods-HomeWork4.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +103,8 @@
 		73E5D1EC1FB27C6B00417592 /* SurveyClasses */ = {
 			isa = PBXGroup;
 			children = (
+				CE370C251FDE142B00BF784C /* SurveyResponse.swift */,
+				CE370C241FDE142B00BF784C /* Steps.swift */,
 				73E5D1ED1FB27C8500417592 /* SurveyTask.swift */,
 				73E5D1F11FB2890500417592 /* SurveyData.swift */,
 			);
@@ -245,6 +251,8 @@
 				73E5D1EE1FB27C8500417592 /* SurveyTask.swift in Sources */,
 				73E5D1F21FB2890500417592 /* SurveyData.swift in Sources */,
 				73E5D1EA1FB18C8000417592 /* WelcomeViewController.swift in Sources */,
+				CE370C261FDE142B00BF784C /* Steps.swift in Sources */,
+				CE370C271FDE142B00BF784C /* SurveyResponse.swift in Sources */,
 				73E5D1E81FB1895C00417592 /* LoginViewController.swift in Sources */,
 				73E5D1D61FB17F1100417592 /* AppDelegate.swift in Sources */,
 			);
