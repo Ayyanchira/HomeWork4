@@ -151,6 +151,7 @@ class SurveyTask: NSObject {
                 instructionStepWeightManagement.title = step.title
                 instructionStepWeightManagement.text = step.message
                 steps += [instructionStepWeightManagement]
+                
             case "Question":
                 
                 switch step.answerFormat!{
